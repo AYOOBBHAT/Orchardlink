@@ -1,6 +1,13 @@
 const mongoose = require('mongoose');
 
 const farmerSchema = new mongoose.Schema({
+  /** Farmer account (User); one orchard profile per farmer user when set */
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    sparse: true,
+    unique: true,
+  },
   name: {
     type: String,
     required: true,
