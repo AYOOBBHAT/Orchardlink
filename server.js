@@ -11,7 +11,16 @@ const authRoutes = require('./routes/authRoutes');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors());
+const clientOrigins = process.env.CLIENT_ORIGINS
+  ? process.env.CLIENT_ORIGINS.split(',').map((s) => s.trim()).filter(Boolean)
+  : null;
+
+app.use(
+  cors({
+    origin:
+      clientOrigins && clientOrigins.length > 0 ? clientOrigins : true,
+  })
+);
 app.use(express.json());
 
 app.get('/', (req, res) => {
