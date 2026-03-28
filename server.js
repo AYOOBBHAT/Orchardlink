@@ -9,7 +9,8 @@ const updateRoutes = require('./routes/updateRoutes');
 const authRoutes = require('./routes/authRoutes');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+/** Railway injects PORT; local dev often uses 5000 (see .env) */
+const PORT = Number(process.env.PORT) || 5000;
 
 const clientOrigins = process.env.CLIENT_ORIGINS
   ? process.env.CLIENT_ORIGINS.split(',').map((s) => s.trim()).filter(Boolean)
@@ -36,7 +37,7 @@ async function start() {
   try {
     await connectDB();
 
-    const server = app.listen(PORT, () => {
+    const server = app.listen(PORT, '0.0.0.0', () => {
       console.log(`Server listening on port ${PORT}`);
     });
 

@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import axios from 'axios';
 import api from '@/lib/api';
 import { getStoredUser } from '@/lib/auth';
 
@@ -43,13 +44,25 @@ export default function TreesPage() {
     try {
       const { data } = await api.get<Tree[]>('/trees');
       setTrees(data);
-    } catch {
+    } catch (err: unknown) {
       const isProd =
         typeof window !== 'undefined' && !window.location.hostname.includes('localhost');
+      const apiBase = api.defaults.baseURL || '(missing)';
+      let detail = '';
+      if (axios.isAxiosError(err)) {
+        if (err.code === 'ERR_NETWORK') {
+          detail =
+            'Browser could not reach the server (wrong URL, API offline, or CORS blocked). ';
+        } else if (err.response) {
+          detail = `Server returned ${err.response.status}. `;
+        } else {
+          detail = `${String(err.message)}. `;
+        }
+      }
       setError(
         isProd
-          ? 'Could not reach the API. In Vercel → Settings → Environment Variables, set NEXT_PUBLIC_API_URL to your Railway URL including /api, then redeploy.'
-          : 'Could not load trees. Start the API locally (e.g. port 5000) or check NEXT_PUBLIC_API_URL in .env.local.'
+          ? `${detail}Active API base (from last build): ${apiBase}. If this is still http://localhost:5000/api, go to Vercel → Environment Variables → confirm NEXT_PUBLIC_API_URL, then Deployments → ⋮ → Redeploy (include rebuild).`
+          : `${detail}Start the API locally or set NEXT_PUBLIC_API_URL in frontend/.env.local.`
       );
     } finally {
       setLoading(false);
