@@ -1,0 +1,109 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Navbar brand apple — subtle float + rotation; faster on link hover */
+@keyframes orchardlink-apple-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-6px) rotate(180deg);
+  }
+}
+
+.orchardlink-apple {
+  display: inline-block;
+  transform-origin: center;
+  animation: orchardlink-apple-float 14s ease-in-out infinite;
+  will-change: transform;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .orchardlink-brand:hover .orchardlink-apple {
+    animation-duration: 6s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orchardlink-apple {
+    animation: none;
+  }
+}
+
+/* Hero apple — slow full rotation; faster + scale on hover (wrapper avoids transform clash) */
+@keyframes apple-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.apple-spin {
+  display: inline-block;
+  transform-origin: center;
+  animation: apple-rotate 10s linear infinite;
+  will-change: transform;
+}
+
+.apple-spin-wrap {
+  display: inline-block;
+  transition:
+    transform 0.3s ease,
+    filter 0.3s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .apple-spin:hover {
+    animation-duration: 4s;
+  }
+
+  .apple-spin-wrap:hover {
+    transform: scale(1.08);
+  }
+
+  .apple-spin-wrap:hover .apple-spin {
+    animation-duration: 4s;
+    filter: drop-shadow(0 0 14px rgba(255, 255, 255, 0.4));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .apple-spin {
+    animation: none;
+  }
+
+  .apple-spin-wrap:hover {
+    transform: none;
+  }
+
+  .apple-spin-wrap:hover .apple-spin {
+    filter: none;
+  }
+}
