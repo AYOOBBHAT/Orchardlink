@@ -44,7 +44,13 @@ export default function TreesPage() {
       const { data } = await api.get<Tree[]>('/trees');
       setTrees(data);
     } catch {
-      setError('Could not load trees. Is the API running on port 5000?');
+      const isProd =
+        typeof window !== 'undefined' && !window.location.hostname.includes('localhost');
+      setError(
+        isProd
+          ? 'Could not reach the API. In Vercel → Settings → Environment Variables, set NEXT_PUBLIC_API_URL to your Railway URL including /api, then redeploy.'
+          : 'Could not load trees. Start the API locally (e.g. port 5000) or check NEXT_PUBLIC_API_URL in .env.local.'
+      );
     } finally {
       setLoading(false);
     }
