@@ -16,10 +16,37 @@ const clientOrigins = process.env.CLIENT_ORIGINS
   ? process.env.CLIENT_ORIGINS.split(',').map((s) => s.trim()).filter(Boolean)
   : null;
 
+/**
+ * Browsers call the API from another origin (Vercel → Railway). If CLIENT_ORIGINS is a
+ * short list, mobile / preview URLs can still be blocked — always allow *.vercel.app.
+ */
+function corsOrigin(origin, callback) {
+  if (!origin) {
+    return callback(null, true);
+  }
+  if (!clientOrigins || clientOrigins.length === 0) {
+    return callback(null, true);
+  }
+  if (clientOrigins.includes(origin)) {
+    return callback(null, true);
+  }
+  try {
+    const { hostname } = new URL(origin);
+    if (hostname === 'localhost' || hostname.endsWith('.vercel.app')) {
+      return callback(null, true);
+    }
+  } catch {
+    // ignore invalid origin
+  }
+  callback(new Error(`CORS blocked for origin: ${origin}`));
+}
+
 app.use(
   cors({
-    origin:
-      clientOrigins && clientOrigins.length > 0 ? clientOrigins : true,
+    origin: corsOrigin,
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    optionsSuccessStatus: 204,
   })
 );
 app.use(express.json());

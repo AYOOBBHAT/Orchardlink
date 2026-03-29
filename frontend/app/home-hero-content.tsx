@@ -31,12 +31,21 @@ export function HomeHeroContent() {
         </motion.h1>
 
         <motion.p
-          className="max-w-md text-lg leading-relaxed text-gray-200"
+          className="max-w-xl text-lg leading-relaxed text-gray-200 sm:text-xl"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.45, delay: 0.08, ease: 'easeOut' }}
         >
-          Adopt an apple tree in Kashmir
+          Adopt a real apple tree in Kashmir and get fresh harvest delivered to your home
+        </motion.p>
+
+        <motion.p
+          className="max-w-xl text-sm font-medium tracking-wide text-white/75 sm:text-base"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.45, delay: 0.14, ease: 'easeOut' }}
+        >
+          Direct from farmers • No middlemen • Fully traceable
         </motion.p>
 
         <motion.div
@@ -49,7 +58,7 @@ export function HomeHeroContent() {
             href="/trees"
             className="inline-flex items-center justify-center rounded-xl bg-green-600 px-6 py-3 text-base font-semibold text-white shadow-lg transition-all hover:scale-105 hover:bg-green-700"
           >
-            Go to Marketplace
+            Explore Trees
           </Link>
         </motion.div>
 
