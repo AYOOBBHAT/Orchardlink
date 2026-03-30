@@ -93,23 +93,30 @@ export default function TreesPage() {
   }
 
   return (
-    <div className="min-h-full bg-stone-100 px-4 py-10 sm:px-6 lg:px-8">
+    <div className="min-h-full bg-stone-100 px-3 py-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-6 sm:px-6 sm:py-10 lg:px-8">
       <div className="mx-auto max-w-6xl">
-        <header className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <h1 className="text-3xl font-bold text-stone-900">Tree marketplace</h1>
-            <p className="mt-1 text-stone-600">Browse and adopt apple trees from Kashmir</p>
+        <header className="mb-6 flex flex-col gap-3 sm:mb-8 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
+          <div className="min-w-0">
+            <h1 className="text-2xl font-bold tracking-tight text-stone-900 sm:text-3xl">
+              Tree marketplace
+            </h1>
+            <p className="mt-1 text-sm text-stone-600 sm:text-base">
+              Browse and adopt apple trees from Kashmir
+            </p>
           </div>
           <Link
             href="/"
-            className="text-sm font-medium text-emerald-700 hover:text-emerald-800"
+            className="inline-flex min-h-10 shrink-0 touch-manipulation items-center text-sm font-medium text-emerald-700 hover:text-emerald-800 sm:pt-1"
           >
             ← Home
           </Link>
         </header>
 
         {error && (
-          <p className="mb-6 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-800" role="alert">
+          <p
+            className="mb-6 max-w-full break-words rounded-lg bg-red-50 px-3 py-3 text-xs leading-relaxed text-red-800 sm:px-4 sm:text-sm"
+            role="alert"
+          >
             {error}
           </p>
         )}
@@ -117,7 +124,7 @@ export default function TreesPage() {
         {loading ? (
           <p className="text-stone-600">Loading trees…</p>
         ) : (
-          <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
             {trees.map((tree) => {
               const img = tree.images?.[0] ?? PLACEHOLDER;
               const farmerName = tree.farmer?.name ?? '—';
@@ -127,7 +134,7 @@ export default function TreesPage() {
               return (
                 <li
                   key={tree._id}
-                  className="flex flex-col overflow-hidden rounded-lg bg-white p-4 shadow-md"
+                  className="flex min-w-0 flex-col overflow-hidden rounded-xl bg-white p-3 shadow-md ring-1 ring-stone-200/80 sm:p-4"
                 >
                   <div className="relative aspect-[4/3] w-full overflow-hidden rounded-md bg-stone-200">
                     <Image
@@ -161,14 +168,14 @@ export default function TreesPage() {
                             type="button"
                             disabled={busy}
                             onClick={() => handleAdopt(tree._id)}
-                            className="w-full rounded-lg bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-700 disabled:opacity-60"
+                            className="min-h-11 w-full touch-manipulation rounded-lg bg-emerald-600 px-4 py-3 text-sm font-semibold text-white shadow-sm transition active:bg-emerald-800 hover:bg-emerald-700 disabled:opacity-60 sm:py-2.5"
                           >
                             {busy ? 'Adopting…' : 'Adopt Tree'}
                           </button>
                         ) : (
                           <Link
                             href="/login"
-                            className="flex w-full items-center justify-center rounded-lg border-2 border-emerald-600 bg-white px-4 py-2.5 text-sm font-semibold text-emerald-700 transition hover:bg-emerald-50"
+                            className="flex min-h-11 w-full touch-manipulation items-center justify-center rounded-lg border-2 border-emerald-600 bg-white px-4 py-3 text-sm font-semibold text-emerald-700 transition active:bg-emerald-100 hover:bg-emerald-50 sm:py-2.5"
                           >
                             Log in to adopt
                           </Link>
@@ -177,7 +184,7 @@ export default function TreesPage() {
                         <button
                           type="button"
                           disabled
-                          className="w-full cursor-not-allowed rounded-lg bg-stone-300 px-4 py-2.5 text-sm font-semibold text-stone-600"
+                          className="min-h-11 w-full cursor-not-allowed rounded-lg bg-stone-300 px-4 py-3 text-sm font-semibold text-stone-600 sm:py-2.5"
                         >
                           Adopted
                         </button>

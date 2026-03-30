@@ -67,7 +67,7 @@ export function RoleNav() {
   if (!hydrated) {
     return (
       <header className="sticky top-0 z-50 border-b border-stone-200/80 bg-white/95 backdrop-blur-sm">
-        <div className="mx-auto flex h-12 max-w-6xl items-center px-4" />
+        <div className="mx-auto min-h-14 max-w-6xl px-3 py-2 sm:px-4" />
       </header>
     );
   }
@@ -76,64 +76,85 @@ export function RoleNav() {
   const showGuestLinks = !isLoggedIn;
 
   return (
-    <header className="sticky top-0 z-50 border-b border-stone-200/80 bg-white/95 backdrop-blur-sm">
-      <nav className="mx-auto flex h-12 max-w-6xl items-center justify-between gap-4 px-4 text-sm font-medium">
+    <header className="sticky top-0 z-50 border-b border-stone-200/80 bg-white/95 backdrop-blur-sm supports-[padding:max(0px)]:pt-[env(safe-area-inset-top)]">
+      <nav className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-2 gap-y-2 px-3 py-2 sm:h-14 sm:flex-nowrap sm:gap-4 sm:px-4 sm:py-0">
         <Link
           href="/"
-          className="orchardlink-brand inline-flex items-center gap-1.5 text-2xl font-extrabold tracking-tight text-green-800 transition-colors duration-300 ease-out hover:text-green-600"
+          className="orchardlink-brand inline-flex shrink-0 items-center gap-1 text-lg font-extrabold tracking-tight text-green-800 transition-colors duration-300 ease-out hover:text-green-600 sm:gap-1.5 sm:text-xl md:text-2xl"
         >
           <span>OrchardLink</span>
-          <span className="orchardlink-apple select-none" aria-hidden="true">
+          <span className="orchardlink-apple select-none text-[1.1em] sm:text-[1em]" aria-hidden="true">
             🍎
           </span>
         </Link>
-        <div className="flex flex-wrap items-center justify-end gap-3 sm:gap-4">
+        <div className="flex max-w-full flex-wrap items-center justify-end gap-x-1 gap-y-1 sm:gap-3 md:gap-4">
           {showGuestLinks ? (
             <>
-              <Link href="/trees" className="text-stone-600 hover:text-stone-900">
+              <Link
+                href="/trees"
+                className="min-h-10 min-w-0 touch-manipulation rounded-md px-2 py-2 text-sm text-stone-600 hover:bg-stone-50 hover:text-stone-900 sm:px-3 sm:py-2"
+              >
                 Marketplace
               </Link>
-              <Link href="/login" className="text-emerald-700 hover:text-emerald-800">
+              <Link
+                href="/login"
+                className="min-h-10 min-w-0 touch-manipulation rounded-md px-2 py-2 text-sm text-emerald-700 hover:bg-emerald-50 hover:text-emerald-800 sm:px-3 sm:py-2"
+              >
                 Log in
               </Link>
               <Link
                 href="/register"
-                className="rounded-lg bg-emerald-600 px-3 py-1.5 text-white hover:bg-emerald-700"
+                className="min-h-10 touch-manipulation rounded-lg bg-emerald-600 px-3 py-2 text-sm font-semibold text-white hover:bg-emerald-700 sm:px-4"
               >
                 Register
               </Link>
             </>
           ) : user?.role === 'farmer' ? (
             <>
-              <Link href="/farmer" className="text-stone-600 hover:text-stone-900">
+              <Link
+                href="/farmer"
+                className="min-h-10 touch-manipulation rounded-md px-2 py-2 text-sm text-stone-600 hover:bg-stone-50 sm:px-2.5"
+              >
                 My Trees
               </Link>
-              <Link href="/add-tree" className="text-emerald-700 hover:text-emerald-800">
+              <Link
+                href="/add-tree"
+                className="min-h-10 touch-manipulation rounded-md px-2 py-2 text-sm text-emerald-700 hover:bg-emerald-50 sm:px-2.5"
+              >
                 Add Tree
               </Link>
-              <Link href="/trees" className="text-stone-600 hover:text-stone-900">
+              <Link
+                href="/trees"
+                className="min-h-10 touch-manipulation rounded-md px-2 py-2 text-sm text-stone-600 hover:bg-stone-50 sm:px-2.5"
+              >
                 Marketplace
               </Link>
               <button
                 type="button"
                 onClick={logout}
-                className="text-stone-500 hover:text-stone-800"
+                className="min-h-10 touch-manipulation rounded-md px-2 py-2 text-sm text-stone-500 hover:bg-stone-50 hover:text-stone-800 sm:px-2.5"
               >
                 Log out
               </button>
             </>
           ) : (
             <>
-              <Link href="/trees" className="text-stone-600 hover:text-stone-900">
+              <Link
+                href="/trees"
+                className="min-h-10 touch-manipulation rounded-md px-2 py-2 text-sm text-stone-600 hover:bg-stone-50 sm:px-2.5"
+              >
                 Marketplace
               </Link>
-              <Link href="/dashboard" className="text-emerald-700 hover:text-emerald-800">
+              <Link
+                href="/dashboard"
+                className="min-h-10 touch-manipulation rounded-md px-2 py-2 text-sm text-emerald-700 hover:bg-emerald-50 sm:px-2.5"
+              >
                 Dashboard
               </Link>
               <button
                 type="button"
                 onClick={logout}
-                className="text-stone-500 hover:text-stone-800"
+                className="min-h-10 touch-manipulation rounded-md px-2 py-2 text-sm text-stone-500 hover:bg-stone-50 hover:text-stone-800 sm:px-2.5"
               >
                 Log out
               </button>
